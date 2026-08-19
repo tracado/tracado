@@ -1,0 +1,55 @@
+# Segredos e ambiente — NUNCA versionar
+# ATENÇÃO: '.env' sozinho NÃO cobre .env.bak, .env.local, .env.producao…
+.env
+.env.*
+!.env.example
+scripts/.senha-licenca
+*.pem
+*.key
+!caddy/*.example.key
+secrets/
+
+# Dados enviados pelos usuários (mantém a pasta, ignora o conteúdo)
+uploads/*
+!uploads/.gitkeep
+
+# Dumps e cópias do banco — contêm dados reais de cliente
+backups/
+*.sql.gz
+*.dump
+
+# Artefatos temporários de inspeção
+.render-tmp/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Sistema operacional / editores
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Artefatos / pacotes antigos
+*.zip
+
+# Licenciador: o compose sobe separado, mas a chave privada NUNCA é versionada
+licenciador/chaves/
+*.priv
+
+# O miolo vive em repositórios PRÓPRIOS e privados:
+#   ../grc-hub-portal        (código do portal)
+#   ../grc-hub-licenciador   (emissão de licenças)
+dashboard/
+licenciador/
+
+# Certificado da CA local — cada instalação gera o seu, extraído do Caddy pelo
+# scripts/confiar-ca.sh. Versionar faria clientes confiarem na CA de outra máquina.
+caddy/*.crt
+caddy/*.key

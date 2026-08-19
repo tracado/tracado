@@ -1,0 +1,175 @@
+name: sgsi-appliance-core
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sgsi_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    networks: [sgsi_internal]
+  keycloak-db-init:
+    image: postgres:16-alpine
+    restart: "no"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_DB: ${KEYCLOAK_DB}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Idempotente: se o banco já existe, o CREATE falha inofensivamente
+    command: >
+      sh -c 'psql -h postgres -U $$POSTGRES_USER -d $$POSTGRES_DB -c "CREATE DATABASE $$KEYCLOAK_DB" 2>/dev/null || true'
+    networks: [sgsi_internal]
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4
+    container_name: sgsi_keycloak
+    restart: unless-stopped
+    command: start-dev --import-realm --http-enabled=true --hostname-strict=false
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${KEYCLOAK_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HOSTNAME: ${KEYCLOAK_PUBLIC_URL:-http://localhost:8086}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_PROXY_HEADERS: xforwarded
+      # Keycloak 26+ usa KC_BOOTSTRAP_ADMIN_* (as antigas ainda funcionam como fallback)
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    volumes:
+      - ./keycloak/realm-sgsi.json:/opt/keycloak/data/import/realm-sgsi.json:ro
+      - ./keycloak/themes/grc-hub:/opt/keycloak/themes/grc-hub:ro
+    depends_on:
+      keycloak-db-init:
+        condition: service_completed_successfully
+    networks: [sgsi_internal, sgsi_public]
+  sgsi-portal:
+    # Imagem publicada e assinada — é o que o cliente recebe. Para desenvolver
+    # a partir do código, suba com o override:
+    #   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+    image: ${PORTAL_IMAGE:-ghcr.io/grchub/grc-hub-portal:2.1.0}
+    container_name: sgsi_portal
+    restart: unless-stopped
+    environment:
+      PGHOST: postgres
+      PGDATABASE: ${POSTGRES_DB}
+      PGUSER: ${POSTGRES_USER}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_PUBLIC_URL:-http://localhost:8086}
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080/auth
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM:-sgsi}
+      KEYCLOAK_CLIENT_ID: sgsi-gateway
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      PORTAL_PUBLIC_URL: ${PORTAL_PUBLIC_URL:-http://localhost:8080}
+      MASTER_EMAIL: ${MASTER_EMAIL:-admin@sgsi.local}
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-}
+      PORTAL_SHARED_SECRET: ${PORTAL_SHARED_SECRET:-}
+      OAUTH2_COOKIE_SECURE: ${OAUTH2_COOKIE_SECURE:-false}
+      DEV_AUTH_EMAIL: ${DEV_AUTH_EMAIL:-}
+      LICENSE_PUBLIC_KEY: ${LICENSE_PUBLIC_KEY:-}
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:1.5b}
+      EMBED_MODEL: ${EMBED_MODEL:-nomic-embed-text}
+      VISION_MODEL: ${VISION_MODEL:-}
+    volumes:
+      - ./uploads:/app/uploads
+      # canal de controle: o app SÓ escreve o pedido de configuração (intent)
+      # aqui; quem aplica é o serviço 'configurator' (o portal não tem docker).
+      - config_control:/control
+    # ── Endurecimento do container ──────────────────────────────────────
+    read_only: true                 # sistema de arquivos imutável
+    tmpfs:                          # únicos pontos graváveis (além de uploads)
+      - /tmp:size=256m,mode=1777
+    cap_drop: [ALL]                 # nenhuma capability do kernel
+    security_opt:
+      - no-new-privileges:true      # bloqueia escalonamento via setuid
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # sgsi_public: saída de rede para o envio de e-mail via SMTP externo
+    # (Office365, Gmail…) — a sgsi_internal é isolada (internal: true)
+    networks: [sgsi_internal, sgsi_public]
+  oauth2-portal:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.9.0
+    container_name: sgsi_oauth2_portal
+    restart: unless-stopped
+    command: ["--provider=oidc","--skip-oidc-discovery=true","--oidc-issuer-url=${KEYCLOAK_PUBLIC_URL:-http://localhost:8086}/realms/${KEYCLOAK_REALM:-sgsi}","--login-url=${KEYCLOAK_PUBLIC_URL:-http://localhost:8086}/realms/${KEYCLOAK_REALM:-sgsi}/protocol/openid-connect/auth","--redeem-url=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM:-sgsi}/protocol/openid-connect/token","--oidc-jwks-url=http://keycloak:8080/auth/realms/${KEYCLOAK_REALM:-sgsi}/protocol/openid-connect/certs","--client-id=sgsi-gateway","--client-secret=${KEYCLOAK_CLIENT_SECRET}","--cookie-secret=${OAUTH2_PROXY_COOKIE_SECRET}","--cookie-secure=${OAUTH2_COOKIE_SECURE:-false}","--email-domain=*","--http-address=0.0.0.0:4180","--redirect-url=${PORTAL_PUBLIC_URL:-http://localhost:8080}/oauth2/callback","--upstream=http://sgsi-portal:5000","--pass-user-headers=true","--set-xauthrequest=true","--code-challenge-method=S256","--cookie-csrf-per-request=true","--cookie-csrf-expire=15m","--whitelist-domain=${OAUTH2_WHITELIST_DOMAINS:-localhost:8086}","--whitelist-domain=${PORTAL_PUBLIC_DOMAIN:-localhost:8080}","--upstream-timeout=120s","--skip-provider-button=true"]
+    depends_on: [keycloak, sgsi-portal]
+    networks: [sgsi_internal, sgsi_public]
+  caddy:
+    image: caddy:2-alpine
+    container_name: sgsi_caddy
+    restart: unless-stopped
+    ports: ["443:443", "80:80", "8080:8080"]
+    environment:
+      PORTAL_SHARED_SECRET: ${PORTAL_SHARED_SECRET:-}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy/certs:/certs:ro       # certificados enviados pelo cliente (modo 'upload')
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [oauth2-portal, keycloak]
+    networks: [sgsi_public]
+  # ── Configurador (plano de controle) ───────────────────────────────────────
+  # ÚNICO componente privilegiado, sem face web. Observa /control/request.json
+  # (escrito só pelo portal, após autenticação de admin) e APLICA a troca de
+  # domínio/certificado: reescreve Caddy + .env, recria os serviços e atualiza
+  # as redirect URIs no Keycloak. Não executa nada vindo do intent como comando
+  # — o intent é só DADO (domínio/e-mail/modo), validado; a lógica é fixa.
+  configurator:
+    build: ./configurator
+    container_name: sgsi_configurator
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}:${PWD}                 # projeto no MESMO caminho absoluto do host
+      - config_control:/control       # canal de controle (compartilhado com o portal)
+    working_dir: ${PWD}
+    environment:
+      HOST_PROJECT_DIR: ${PWD}
+    # sem portas, sem rede pública: só fala com o socket do Docker
+    networks: [sgsi_internal]
+  # ── Analista IA (Estágio 2, OPCIONAL): LLM local — ativar com --profile ia ──
+  # docker compose --profile ia up -d
+  # docker compose exec ollama ollama pull qwen2.5:1.5b
+  ollama:
+    image: ollama/ollama:latest
+    container_name: sgsi_ollama
+    profiles: ["ia"]
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    # sgsi_internal é isolada (internal: true); a sgsi_public é necessária
+    # apenas para o "ollama pull" baixar o modelo. Depois de baixado, o
+    # serviço pode operar 100% offline.
+    networks: [sgsi_internal, sgsi_public]
+
+volumes:
+  postgres_data: {}
+  caddy_data: {}
+  caddy_config: {}
+  ollama_data: {}
+  config_control: {}
+networks:
+  sgsi_internal:
+    internal: true
+  sgsi_public: {}

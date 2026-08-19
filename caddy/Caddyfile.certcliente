@@ -1,0 +1,44 @@
+# GRC-HUB-CERT-CLIENTE — gerado pelo assistente (modo "enviar meu certificado").
+# Usa o certificado + chave que o cliente enviou pela interface (PKI corporativa
+# ou certificado público já emitido). O certificado deve cobrir OS DOIS domínios
+# (portal e login), via SAN ou wildcard. Caddy NÃO tenta renovar — a renovação
+# é responsabilidade do cliente (reenviar pelo assistente quando trocar).
+{
+    admin off
+}
+(strip_auth) {
+    request_header -X-Auth-Request-Email
+    request_header -X-Auth-Request-User
+    request_header -X-Auth-Request-Preferred-Username
+    request_header -X-Auth-Request-Groups
+    request_header -X-Auth-Request-Access-Token
+    request_header -X-Forwarded-Email
+    request_header -X-Forwarded-User
+    request_header -X-Forwarded-Groups
+    request_header -X-Forwarded-Preferred-Username
+    request_header -X-Portal-Secret
+    request_header X-Portal-Secret {$PORTAL_SHARED_SECRET}
+}
+(headers) {
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        -Server
+    }
+}
+__PORTAL_DOMAIN__ {
+    tls /certs/portal.crt /certs/portal.key
+    import headers
+    import strip_auth
+    reverse_proxy oauth2-portal:4180
+}
+__AUTH_DOMAIN__ {
+    tls /certs/portal.crt /certs/portal.key
+    import headers
+    import strip_auth
+    reverse_proxy keycloak:8080
+}

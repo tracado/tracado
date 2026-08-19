@@ -1,0 +1,21 @@
+# ══ Override de DESENVOLVIMENTO ══
+#
+# Constrói o portal a partir do repositório privado clonado ao lado, em vez de
+# puxar a imagem publicada. Uso:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+#
+# Espera a seguinte disposição:
+#   ~/grc-hub/           (este repositório, público)
+#   ~/grc-hub-portal/    (privado — o código do portal)
+#
+# Ajuste PORTAL_SRC no .env se o clone estiver em outro lugar.
+services:
+  sgsi-portal:
+    build:
+      context: ${PORTAL_SRC:-../grc-hub-portal}
+      args:
+        VERSION: dev
+        GIT_SHA: local
+        BUILD_ID: dev
+    image: grc-hub-portal:dev

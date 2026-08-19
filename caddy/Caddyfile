@@ -1,0 +1,68 @@
+# GRC-HUB-LOCAL — 1º uso / avaliação / na própria máquina, com HTTPS.
+# Portal   → https://localhost
+# Keycloak → https://localhost:8443
+# Resolve em Windows/Linux/Mac SEM mexer em /etc/hosts (é localhost).
+# Cookies Secure funcionam (é HTTPS). O certificado é da CA interna do Caddy
+# (tls internal) → aparece UM aviso na 1ª visita: aceite/prossiga (é normal em
+# appliance local). NÃO usamos HSTS aqui de propósito, para o "prosseguir"
+# funcionar em todos os navegadores. HSTS + cert confiável entram no modo
+# PRODUÇÃO, quando o cliente configura o domínio dele (assistente / configurar-dominio.sh).
+{
+    admin off
+}
+(strip_auth) {
+    # Remove headers de identidade vindos do CLIENTE: só o oauth2-proxy pode
+    # defini-los, após autenticar no Keycloak. Sem isto, qualquer um poderia
+    # enviar "X-Forwarded-Email: admin@..." e se passar por administrador.
+    request_header -X-Auth-Request-Email
+    request_header -X-Auth-Request-User
+    request_header -X-Auth-Request-Preferred-Username
+    request_header -X-Auth-Request-Groups
+    request_header -X-Auth-Request-Access-Token
+    request_header -X-Forwarded-Email
+    request_header -X-Forwarded-User
+    request_header -X-Forwarded-Groups
+    request_header -X-Forwarded-Preferred-Username
+    # segredo compartilhado: prova que a requisição veio pelo gateway
+    request_header -X-Portal-Secret
+    request_header X-Portal-Secret {$PORTAL_SHARED_SECRET}
+}
+(headers_local) {
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # CSP: o projeto NÃO carrega nada externo, então tudo é travado em 'self'.
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        # SEM Strict-Transport-Security no modo localhost (ver cabeçalho acima).
+        -Server
+    }
+}
+
+# ── UMA ÚNICA ORIGEM: https://localhost ────────────────────────────────────
+# Portal e Keycloak convivem no mesmo host/porta (o login fica em /auth/*).
+# Motivo: com duas origens (443 e 8443) o navegador pedia DOIS aceites de
+# certificado e o fluxo OIDC virava cross-site — o que quebrava o login em
+# Chrome/Safari/Edge. Mesma origem = 1 aceite e cookies same-site.
+localhost {
+    tls internal
+    import headers_local
+    import strip_auth
+    handle /auth/* {
+        reverse_proxy keycloak:8080
+    }
+    handle {
+        reverse_proxy oauth2-portal:4180
+    }
+}
+
+# ── HTTP antigo → cai no HTTPS do portal ──
+# (redirect TEMPORÁRIO de propósito: 301/permanente fica cacheado no navegador
+#  e atrapalha quando o ambiente muda em dev.)
+http://localhost:8080 {
+    redir https://localhost{uri} 302
+}
+http://localhost {
+    redir https://localhost{uri} 302
+}

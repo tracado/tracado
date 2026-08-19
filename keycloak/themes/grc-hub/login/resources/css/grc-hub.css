@@ -1,0 +1,142 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GRC Hub — tema de login (Keycloak / PatternFly v5)
+   Mesma identidade do portal: dark premium, cyan → purple.
+   ═══════════════════════════════════════════════════════════════════ */
+/* Fontes auto-hospedadas (mesma tipografia do portal; login funciona offline) */
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('../fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap;
+  src: url('../fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap;
+  src: url('../fonts/poppins-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins'; font-style: normal; font-weight: 700 800; font-display: swap;
+  src: url('../fonts/poppins-700.woff2') format('woff2');
+}
+
+body.login-pf,
+.pf-v5-c-login {
+  background:
+    radial-gradient(1100px 560px at 15% -10%, rgba(83,55,245,.28), transparent 60%),
+    radial-gradient(900px 480px at 95% 110%, rgba(0,212,255,.16), transparent 55%),
+    #080c14 !important;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Marca (realm displayNameHtml) */
+#kc-header-wrapper { padding: 0; text-transform: none; }
+.grc-brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  color: #e8f4ff;
+  letter-spacing: .01em;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.grc-brand::before {
+  content: 'G';
+  width: 46px; height: 46px; border-radius: 12px;
+  background: linear-gradient(135deg, #00d4ff, #a78bfa);
+  color: #000; display: grid; place-items: center;
+  font-size: 22px; margin-bottom: 4px;
+}
+.grc-brand span {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 3px;
+  color: #7a9bbf;
+}
+
+/* Cartão de login */
+.pf-v5-c-login__main {
+  background: #0d1520;
+  border: 1px solid #1a2d45;
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.55);
+}
+.pf-v5-c-login__main-header .pf-v5-c-title,
+#kc-page-title {
+  color: #e8f4ff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* Formulário */
+.pf-v5-c-form__label-text { color: #7a9bbf; font-weight: 600; font-size: 12px; letter-spacing: .04em; }
+.pf-v5-c-form-control {
+  background: #15243a !important;
+  border-radius: 8px;
+  --pf-v5-c-form-control--BorderColor: #1f3550;
+  --pf-v5-c-form-control--BackgroundColor: #15243a;
+  --pf-v5-c-form-control--Color: #e8f4ff;
+}
+.pf-v5-c-form-control > input,
+.pf-v5-c-form-control input {
+  background: transparent !important;
+  color: #e8f4ff !important;
+}
+.pf-v5-c-form-control:focus-within {
+  --pf-v5-c-form-control--BorderColor: #00d4ff;
+}
+.pf-v5-c-button.pf-m-control { background: #15243a; color: #7a9bbf; border-color: #1f3550; }
+
+/* Botão principal */
+.pf-v5-c-button.pf-m-primary {
+  background: linear-gradient(135deg, #00d4ff 0%, #5337f5 100%);
+  border: 0;
+  border-radius: 9px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: #ffffff;
+  padding-top: 10px; padding-bottom: 10px;
+}
+.pf-v5-c-button.pf-m-primary:hover { filter: brightness(1.12); }
+
+/* Links e textos auxiliares */
+.pf-v5-c-login__main a { color: #00d4ff; font-weight: 600; }
+.pf-v5-c-login__main-footer, .pf-v5-c-login__main-body { color: #a9c2dc; }
+.pf-v5-c-helper-text, .pf-v5-c-form__helper-text { color: #7a9bbf; }
+#kc-registration span, .pf-v5-c-login__main-footer-band { color: #7a9bbf; }
+
+/* Alertas */
+.pf-v5-c-alert { border-radius: 9px; }
+
+/* ── SSO / Identity providers ──────────────────────────────────────
+   Quando um IdP é configurado no console (Identity providers →
+   Add provider), o Keycloak exibe os botões "Entrar com ..." aqui,
+   abaixo do formulário de usuário/senha. */
+.pf-v5-c-login__main-footer-band-item,
+#kc-social-providers h2,
+#kc-social-providers h4 {
+  color: #7a9bbf;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+#kc-social-providers { border-top: 1px solid #1a2d45; padding-top: 16px; margin-top: 8px; }
+#kc-social-providers ul { display: flex; flex-direction: column; gap: 8px; }
+#kc-social-providers a.pf-v5-c-button,
+.kc-social-item {
+  background: #15243a;
+  border: 1px solid #1f3550;
+  border-radius: 9px;
+  color: #e8f4ff !important;
+  font-weight: 600;
+  padding: 10px 14px;
+  transition: border-color .15s ease, background .15s ease;
+}
+#kc-social-providers a.pf-v5-c-button:hover,
+.kc-social-item:hover {
+  background: #1a2c46;
+  border-color: #00d4ff;
+  text-decoration: none;
+}
+.kc-social-provider-name { color: #e8f4ff; }
+.kc-social-icon-text { color: #e8f4ff; }

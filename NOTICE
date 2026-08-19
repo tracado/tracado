@@ -1,0 +1,82 @@
+GRC Hub — Avisos de Terceiros
+=============================
+
+Este produto incorpora e distribui componentes de terceiros, listados abaixo com
+suas respectivas licenças. Nada nesta lista altera os termos do LICENSE do
+GRC Hub; cada componente permanece sob a licença do seu autor.
+
+
+Serviços da plataforma (imagens de contêiner)
+---------------------------------------------
+Keycloak 26.4 — Apache License 2.0 — https://www.keycloak.org
+    Autenticação e SSO. O tema da tela de login utilizado pelo GRC Hub é obra
+    derivada do tema padrão do Keycloak, também sob Apache 2.0.
+
+oauth2-proxy 7.9.0 — MIT License — https://oauth2-proxy.github.io
+
+Caddy 2 — Apache License 2.0 — https://caddyserver.com
+    Gateway HTTP/TLS.
+
+PostgreSQL 16 — PostgreSQL License (BSD-like) — https://www.postgresql.org
+
+Ollama — MIT License — https://ollama.com
+    Motor local de inferência. Os MODELOS não são distribuídos com o produto:
+    são obtidos pelo cliente na primeira execução, sob as licenças dos seus
+    respectivos autores (ver abaixo).
+
+
+Modelos de linguagem (baixados pelo cliente, não redistribuídos)
+----------------------------------------------------------------
+Qwen2.5 1.5B — Alibaba Cloud — Apache License 2.0
+    https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct
+    Usado para redação assistida (rascunho de pareceres e de análise de causa
+    raiz). Confirme a licença vigente na página do modelo antes de cada
+    distribuição: a família Qwen2.5 usa Apache 2.0 na maioria dos tamanhos, mas
+    alguns tamanhos têm licença própria da Alibaba.
+
+nomic-embed-text — Nomic AI — Apache License 2.0
+    https://huggingface.co/nomic-ai/nomic-embed-text-v1.5
+    Usado para correlação semântica entre evidências e controles.
+
+
+Bibliotecas Python (dentro da imagem do portal)
+-----------------------------------------------
+Flask 3.0.3 — BSD 3-Clause — https://flask.palletsprojects.com
+Werkzeug 3.0.6 — BSD 3-Clause — https://werkzeug.palletsprojects.com
+Jinja2 (via Flask) — BSD 3-Clause — https://jinja.palletsprojects.com
+psycopg2-binary 2.9.10 — LGPL 3.0 com exceção — https://www.psycopg.org
+    Utilizada como biblioteca, sem modificação. O código-fonte da biblioteca
+    permanece disponível no endereço acima, conforme exige a LGPL.
+pypdf 5.1.0 — BSD 3-Clause — https://pypdf.readthedocs.io
+Pillow 11.0.0 — MIT-CMU — https://python-pillow.org
+gunicorn 23.0.0 — MIT License — https://gunicorn.org
+cryptography 43.0.3 — Apache 2.0 / BSD 3-Clause — https://cryptography.io
+
+
+Conteúdo normativo
+------------------
+O GRC Hub referencia normas e frameworks por CÓDIGO e TÍTULO de controle, e
+descreve requisitos com texto próprio. O texto normativo das normas NÃO é
+reproduzido nem redistribuído.
+
+ISO/IEC 27001 e ISO/IEC 27002 — © ISO/IEC e, no Brasil, ABNT.
+    A norma deve ser adquirida pelo usuário junto à ABNT ou à ISO. O GRC Hub não
+    substitui nem reproduz o conteúdo normativo.
+ISO/IEC 42001 — © ISO/IEC e ABNT. Mesma condição acima.
+COBIT 2019 — © ISACA. Uso da estrutura sujeito aos termos da ISACA.
+CIS Controls v8 — © Center for Internet Security, Inc.
+    Uso sujeito aos termos do CIS; atribuição obrigatória.
+NIST Cybersecurity Framework 2.0 — publicação do NIST (governo dos EUA), em
+    domínio público nos EUA.
+LGPD — Lei nº 13.709/2018 (Brasil), texto legal de domínio público.
+
+
+Marcas
+------
+ISO e IEC são marcas da International Organization for Standardization e da
+International Electrotechnical Commission. ABNT é marca da Associação Brasileira
+de Normas Técnicas. CIS e CIS Controls são marcas do Center for Internet
+Security, Inc. COBIT é marca da ISACA. NIST é agência do Departamento de
+Comércio dos EUA. AWS, Microsoft 365 e demais nomes citados na documentação
+pertencem aos seus respectivos titulares. O uso desses nomes é meramente
+referencial e não implica endosso.
