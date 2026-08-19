@@ -96,7 +96,7 @@ com persistência por navegador. A tela de login do Keycloak usa o tema `grc-hub
 (mesma identidade visual), definido em `keycloak/themes/grc-hub`.
 
 **Tipografia**: Poppins (títulos), Inter (texto) e IBM Plex Mono (códigos/números) —
-**auto-hospedadas** em `dashboard/static/fonts` e no tema do Keycloak: nenhuma chamada
+**auto-hospedadas** na imagem do portal e no tema do Keycloak: nenhuma chamada
 a CDN, o visual é idêntico mesmo em appliance 100% offline.
 
 ## SSO, MFA e identidade (Keycloak)

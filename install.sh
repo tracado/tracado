@@ -126,7 +126,9 @@ if [ "$IA" = "1" ]; then export COMPOSE_PROFILES=ia; fi
 if [ "$RESET" = "--reset" ]; then $DC down -v || true; fi
 $DC pull
 docker run --rm -v "$PWD/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile
-$DC up -d --build
+# Sem --build: o cliente recebe a IMAGEM publicada e assinada, não o código.
+# Para desenvolver a partir do fonte, use docker-compose.dev.yml.
+$DC up -d
 sleep 15
 
 # Analista IA: tier automático por RAM + download dos modelos (idempotente)
