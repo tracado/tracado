@@ -39,6 +39,23 @@ cosign verify ghcr.io/grchub/grc-hub-portal@sha256:<digest> \
   --certificate-identity-regexp '.*' --certificate-oidc-issuer-regexp '.*'
 ```
 
+## Compilação do miolo
+
+A imagem distribuída **não contém o código-fonte** dos módulos onde mora a
+decisão de negócio. O build tem dois estágios: o primeiro compila com Cython,
+o segundo monta a imagem final só com os binários.
+
+Compilados: `calc`, `reports`, `analise_ia`, `recomendacoes`, `licenca`,
+`ia_llm` — 4.680 linhas. Verificável na imagem:
+
+```bash
+docker run --rm --entrypoint sh <imagem> -c "ls /app/*.py /app/*.so"
+```
+
+Ficam legíveis por opção: `app.py` (rotas) e o encanamento. **Não são
+protegidos** os templates Jinja e o esquema do banco. A compilação eleva o
+custo de cópia; não a torna impossível.
+
 ## Marca da instância
 
 Toda instalação exibe, no rodapé de cada tela e no cabeçalho de **cada
