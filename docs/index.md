@@ -1,4 +1,4 @@
-# GRC Hub
+# Lastro
 
 **Appliance de GRC auto-hospedado.** Roda inteiro na infraestrutura da sua
 empresa: ISO/IEC 27001, LGPD, CIS Controls v8, NIST CSF, COBIT 2019 e ISO 42001,
@@ -7,7 +7,7 @@ do seu SGSI sai da sua rede**.
 
 ## Documentação
 
-- **[Como o GRC Hub pensa](modelo.md)** — o modelo: o que é cada coisa, por que
+- **[Como o Lastro pensa](modelo.md)** — o modelo: o que é cada coisa, por que
   a norma exige, e como uma puxa a outra.
 - **[Guia de cada tela](telas.md)** — o que você faz, o que o sistema faz
   sozinho e o que ele vai cobrar de você.
@@ -38,7 +38,7 @@ produto como serviço gerenciado a terceiros e contornar a verificação de lice
 ## Segurança
 
 Encontrou uma vulnerabilidade? Veja a
-[política de segurança](https://github.com/GRCHUB/grc-hub/blob/main/SECURITY.md).
+[política de segurança](https://github.com/lastrogrc/lastro/blob/main/SECURITY.md).
 Não abra issue pública.
 
 ---

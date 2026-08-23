@@ -1,5 +1,5 @@
 -- ============================================================================
--- GRC Hub v2.1 — Upgrade incremental (fusão GRC Platform premium)
+-- Lastro v2.1 — Upgrade incremental (fusão GRC Platform premium)
 -- Idempotente: pode ser executado em base nova (initdb) ou existente (psql).
 -- ============================================================================
 SET client_min_messages = 'warning';
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS fw_map_sugestoes(
 
 
 -- ════════════════════════════════════════════════════════════════════════════
--- MOTOR DE RECOMENDAÇÕES — fecha o ciclo de inteligência do GRC Hub
+-- MOTOR DE RECOMENDAÇÕES — fecha o ciclo de inteligência do Lastro
 -- Política/evidência analisada → recomendações tipadas (maturidade, risco,
 -- NC, plano) com ação pré-programada. Human-in-the-loop: Pendente → Aplicada/Descartada.
 -- ════════════════════════════════════════════════════════════════════════════

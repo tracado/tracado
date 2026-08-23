@@ -56,7 +56,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     volumes:
       - ./keycloak/realm-sgsi.json:/opt/keycloak/data/import/realm-sgsi.json:ro
-      - ./keycloak/themes/grc-hub:/opt/keycloak/themes/grc-hub:ro
+      - ./keycloak/themes/lastro:/opt/keycloak/themes/lastro:ro
     depends_on:
       keycloak-db-init:
         condition: service_completed_successfully
@@ -65,7 +65,7 @@ services:
     # Imagem publicada e assinada — é o que o cliente recebe. Para desenvolver
     # a partir do código, suba com o override:
     #   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
-    image: ${PORTAL_IMAGE:-ghcr.io/grchub/grc-hub-portal:2.1.0}
+    image: ${PORTAL_IMAGE:-ghcr.io/lastrogrc/lastro-portal:2.1.0}
     container_name: sgsi_portal
     restart: unless-stopped
     environment:

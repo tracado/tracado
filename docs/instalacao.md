@@ -1,13 +1,13 @@
 # Instalação
 
-O GRC Hub roda em Docker. O instalador cuida de tudo, inclusive de instalar o
+O Lastro roda em Docker. O instalador cuida de tudo, inclusive de instalar o
 Docker se ele não existir.
 
 ## Linux e macOS
 
 ```bash
-git clone https://github.com/GRCHUB/grc-hub.git
-cd grc-hub
+git clone https://github.com/lastrogrc/lastro.git
+cd lastro
 ./install.sh
 ```
 

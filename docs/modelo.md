@@ -1,4 +1,4 @@
-# Como o GRC Hub pensa
+# Como o Lastro pensa
 
 O produto é **um grafo**, não um conjunto de telas. Aqui está o que cada coisa
 é, por que a norma exige, e como uma puxa a outra.
@@ -12,7 +12,7 @@ evidência; o desvio vira não conformidade; a não conformidade tem causa raiz 
 plano; o plano é verificado quanto à eficácia; e tudo alimenta a análise crítica
 da direção, que decide os próximos passos.
 
-O GRC Hub existe para que você **nunca digite a mesma informação duas vezes** e
+O Lastro existe para que você **nunca digite a mesma informação duas vezes** e
 para que, em qualquer ponto, seja possível responder "de onde veio isso?" e "no
 que isso deu?".
 
@@ -32,7 +32,7 @@ interessada vira risco; os objetivos alimentam as metas dos indicadores.
 
 ### 2. Ativos de Informação — A.5.9 e ISO 27005
 
-O que a organização protege. O GRC Hub separa ativo **primário** (processo,
+O que a organização protege. O Lastro separa ativo **primário** (processo,
 serviço, informação — o que tem valor de negócio) de ativo de **suporte** (nuvem,
 banco, pessoas, instalações — o que sustenta os primários).
 

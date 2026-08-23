@@ -50,4 +50,4 @@ else:
 sk = Ed25519PrivateKey.from_private_bytes(bytes.fromhex(a.privada))
 base = f'{plano}|{cliente}|{val}'.lower()
 assin = sk.sign(base.encode()).hex().upper()
-print(f'GRCHUB-{plano.upper()}-{cliente}-{val}-{assin}')
+print(f'LASTRO-{plano.upper()}-{cliente}-{val}-{assin}')

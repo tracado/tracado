@@ -1,4 +1,4 @@
-# Contrato de Licença de Usuário Final — GRC Hub
+# Contrato de Licença de Usuário Final — Lastro
 
 > **Minuta para revisão jurídica.** Este documento foi redigido para dar forma ao
 > modelo comercial descrito no LICENSE e no NOTICE. Antes de usar comercialmente,
@@ -12,9 +12,9 @@
 ## 1. Objeto
 
 O Licenciante concede ao Licenciado licença **não exclusiva, intransferível e
-revogável** de uso do GRC Hub, na modalidade auto-hospedada, no **escopo
+revogável** de uso do Lastro, na modalidade auto-hospedada, no **escopo
 normativo** e pelo **número de instâncias** constantes do Pedido. Esta licença
-não transfere propriedade: o GRC Hub, seu código, sua metodologia, seus modelos
+não transfere propriedade: o Lastro, seu código, sua metodologia, seus modelos
 de correlação e sua marca permanecem do Licenciante.
 
 O uso do software também se sujeita ao Elastic License 2.0 (arquivo LICENSE).
@@ -31,7 +31,7 @@ criptograficamente. A chave é pessoal e intransferível.
 
 O Licenciado não poderá:
 
-a) fornecer o GRC Hub a terceiros como serviço hospedado ou gerenciado;
+a) fornecer o Lastro a terceiros como serviço hospedado ou gerenciado;
 b) mover, alterar, desabilitar, contornar ou emular a funcionalidade de chave de
    licença, nem gerar, tentar gerar ou obter de terceiro não autorizado chave de
    ativação;
@@ -67,13 +67,13 @@ Licenciado.
 Durante a vigência, o Licenciado recebe correções, atualizações de catálogo
 normativo e de conteúdo regulatório, e o suporte previsto no Pedido.
 
-Os dados inseridos são de titularidade exclusiva do Licenciado. O GRC Hub opera
+Os dados inseridos são de titularidade exclusiva do Licenciado. O Lastro opera
 integralmente na infraestrutura do Licenciado, **sem telemetria e sem envio de
 conteúdo ao Licenciante**. A camada de inteligência artificial é local.
 
 ## 7. Garantia e responsabilidade
 
-O GRC Hub é ferramenta de apoio à gestão. **Não garante a obtenção de
+O Lastro é ferramenta de apoio à gestão. **Não garante a obtenção de
 certificação nem substitui julgamento profissional** de auditor, do Encarregado
 ou de assessoria jurídica. As decisões de conformidade são do Licenciado.
 

@@ -1,11 +1,11 @@
 @echo off
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
-title GRC Hub - Instalador (Windows)
+title Lastro - Instalador (Windows)
 cd /d "%~dp0"
 
 REM ══════════════════════════════════════════════════════════════════
-REM  GRC Hub — instalador do Windows.
+REM  Lastro — instalador do Windows.
 REM
 REM  Estratégia: NÃO usa Docker Desktop. Instala o WSL2 (subsistema
 REM  Linux do proprio Windows) e, dentro dele, o Docker Engine +
@@ -27,7 +27,7 @@ if %errorLevel% neq 0 (
 
 echo.
 echo  ═══════════════════════════════════════════════
-echo    GRC Hub — Instalador (Windows / WSL2)
+echo    Lastro — Instalador (Windows / WSL2)
 echo  ═══════════════════════════════════════════════
 echo.
 
@@ -107,11 +107,11 @@ if %errorLevel% equ 0 (
 wsl -d %DISTRO% -u root -- bash -c "systemctl enable --now docker >/dev/null 2>&1 || service docker start >/dev/null 2>&1; true"
 
 REM ── 5. Copia o projeto para dentro do WSL e instala ───────────────
-echo  [5/6] Preparando o GRC Hub dentro do WSL...
+echo  [5/6] Preparando o Lastro dentro do WSL...
 for /f "usebackq delims=" %%i in (`wsl -d %DISTRO% -u root -- wslpath "'%CD%'"`) do set "SRC=%%i"
-wsl -d %DISTRO% -u root -- bash -c "mkdir -p /opt/grc-hub && cp -r '%SRC%/.' /opt/grc-hub/ 2>/dev/null; cd /opt/grc-hub && chmod +x install.sh scripts/*.sh 2>/dev/null; true"
+wsl -d %DISTRO% -u root -- bash -c "mkdir -p /opt/lastro && cp -r '%SRC%/.' /opt/lastro/ 2>/dev/null; cd /opt/lastro && chmod +x install.sh scripts/*.sh 2>/dev/null; true"
 echo       Executando a instalacao (pode demorar na primeira vez)...
-wsl -d %DISTRO% -u root -- bash -c "cd /opt/grc-hub && ./install.sh local"
+wsl -d %DISTRO% -u root -- bash -c "cd /opt/lastro && ./install.sh local"
 if %errorLevel% neq 0 (
     echo  ✖ A instalacao dentro do WSL falhou. Veja as mensagens acima.
     pause & exit /b 1
@@ -119,8 +119,8 @@ if %errorLevel% neq 0 (
 
 REM ── 6. Confiar na CA interna (Windows + Firefox) ──────────────────
 echo  [6/6] Instalando o certificado da CA interna...
-wsl -d %DISTRO% -u root -- bash -c "cd /opt/grc-hub && docker exec sgsi_caddy sh -c 'cat /data/caddy/pki/authorities/local/root.crt' > /opt/grc-hub/caddy/GRC-Hub-CA-local.crt 2>/dev/null; true"
-wsl -d %DISTRO% -u root -- bash -c "cp /opt/grc-hub/caddy/GRC-Hub-CA-local.crt '%SRC%/caddy/GRC-Hub-CA-local.crt' 2>/dev/null; true"
+wsl -d %DISTRO% -u root -- bash -c "cd /opt/lastro && docker exec sgsi_caddy sh -c 'cat /data/caddy/pki/authorities/local/root.crt' > /opt/lastro/caddy/GRC-Hub-CA-local.crt 2>/dev/null; true"
+wsl -d %DISTRO% -u root -- bash -c "cp /opt/lastro/caddy/GRC-Hub-CA-local.crt '%SRC%/caddy/GRC-Hub-CA-local.crt' 2>/dev/null; true"
 if exist "%CD%\caddy\GRC-Hub-CA-local.crt" (
     certutil -addstore -f Root "%CD%\caddy\GRC-Hub-CA-local.crt" >nul 2>&1
     if !errorLevel! equ 0 (
@@ -143,7 +143,7 @@ if exist "%CD%\caddy\GRC-Hub-CA-local.crt" (
 
 echo.
 echo  ═══════════════════════════════════════════════
-echo    ✓ GRC Hub instalado
+echo    ✓ Lastro instalado
 echo.
 echo    Acesse:  https://localhost
 echo.

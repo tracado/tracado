@@ -67,8 +67,8 @@ Comece pelos privados. Se algo der errado, nada sensível estará exposto.
 **2.1 — O portal (o miolo do produto):**
 
 ```bash
-cd ~/grc-hub-portal
-gh repo create grc-hub-portal --private --source=. --remote=origin --push
+cd ~/lastro-portal
+gh repo create lastro-portal --private --source=. --remote=origin --push
 ```
 
 Lendo o comando: `--private` cria fechado; `--source=.` diz que o conteúdo é
@@ -77,15 +77,15 @@ esta pasta; `--remote=origin` registra o endereço remoto; `--push` já envia.
 **2.2 — O licenciador:**
 
 ```bash
-cd ~/grc-hub-licenciador
-gh repo create grc-hub-licenciador --private --source=. --remote=origin --push
+cd ~/lastro-licenciador
+gh repo create lastro-licenciador --private --source=. --remote=origin --push
 ```
 
 **2.3 — Confirme que estão privados:**
 
 ```bash
-gh repo view grc-hub-portal --json isPrivate,url
-gh repo view grc-hub-licenciador --json isPrivate,url
+gh repo view lastro-portal --json isPrivate,url
+gh repo view lastro-licenciador --json isPrivate,url
 ```
 
 Ambos devem responder `"isPrivate": true`. **Se algum vier `false`, pare e
@@ -100,7 +100,7 @@ Este é o único irreversível: uma vez público, considere que alguém já copi
 **3.1** Veja exatamente o que sairá:
 
 ```bash
-cd ~/grc-v2.1
+cd ~/lastro
 git ls-files
 ```
 
@@ -115,7 +115,7 @@ Precisa imprimir **LIMPO**. Se imprimir qualquer arquivo, **pare**.
 **3.3** Só então crie e publique:
 
 ```bash
-gh repo create grc-hub --public --source=. --remote=origin --push
+gh repo create lastro --public --source=. --remote=origin --push
 ```
 
 ---
@@ -123,20 +123,20 @@ gh repo create grc-hub --public --source=. --remote=origin --push
 ## Etapa 4 — O site de documentação (GitHub Pages)
 
 O GitHub publica um site a partir de uma pasta do repositório, de graça. O
-endereço será `https://SEU-USUARIO.github.io/grc-hub/`.
+endereço será `https://SEU-USUARIO.github.io/lastro/`.
 
 **4.1** A pasta `docs/` já está pronta neste repositório, com a documentação
 convertida do produto. Confirme:
 
 ```bash
-ls ~/grc-v2.1/docs
+ls ~/lastro/docs
 ```
 
 **4.2** Ligue o Pages:
 
 ```bash
-cd ~/grc-v2.1
-gh api -X POST repos/:owner/grc-hub/pages -f "source[branch]=main" -f "source[path]=/docs"
+cd ~/lastro
+gh api -X POST repos/:owner/lastro/pages -f "source[branch]=main" -f "source[path]=/docs"
 ```
 
 Se disser que já existe, está ligado — siga.
@@ -144,7 +144,7 @@ Se disser que já existe, está ligado — siga.
 **4.3** Espere de um a dois minutos e veja o endereço:
 
 ```bash
-gh api repos/:owner/grc-hub/pages --jq .html_url
+gh api repos/:owner/lastro/pages --jq .html_url
 ```
 
 Abra no navegador. Se aparecer 404, espere mais um minuto: a primeira
@@ -161,7 +161,7 @@ a branch** → *Branch*: **main**, pasta **/docs** → **Save**.
 Trabalhou no código, quer mandar para o GitHub:
 
 ```bash
-cd ~/grc-hub-portal      # ou o repositório que você mexeu
+cd ~/lastro-portal      # ou o repositório que você mexeu
 git status               # o que mudou
 git add -A               # marca tudo para o próximo commit
 git commit -m "descreva em uma linha o que mudou"
@@ -179,7 +179,7 @@ momento em que um arquivo indevido é pego.
 
 **Publiquei algo errado no repositório público** → o arquivo continua no
 histórico mesmo se apagado depois. Torne o repositório privado imediatamente
-(`gh repo edit grc-hub --visibility private`), **troque qualquer segredo que
+(`gh repo edit lastro --visibility private`), **troque qualquer segredo que
 tenha vazado** — ele deve ser considerado comprometido — e só então limpe o
 histórico.
 

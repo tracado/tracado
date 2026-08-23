@@ -6,16 +6,16 @@
 #   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 #
 # Espera a seguinte disposição:
-#   ~/grc-hub/           (este repositório, público)
-#   ~/grc-hub-portal/    (privado — o código do portal)
+#   ~/lastro/           (este repositório, público)
+#   ~/lastro-portal/    (privado — o código do portal)
 #
 # Ajuste PORTAL_SRC no .env se o clone estiver em outro lugar.
 services:
   sgsi-portal:
     build:
-      context: ${PORTAL_SRC:-../grc-hub-portal}
+      context: ${PORTAL_SRC:-../lastro-portal}
       args:
         VERSION: dev
         GIT_SHA: local
         BUILD_ID: dev
-    image: grc-hub-portal:dev
+    image: lastro-portal:dev

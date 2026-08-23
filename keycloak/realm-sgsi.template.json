@@ -1,9 +1,9 @@
 {
   "realm": "sgsi",
   "enabled": true,
-  "displayName": "GRC Hub",
-  "displayNameHtml": "<div class=\"grc-brand\">GRC Hub<span>GOVERNANÇA · RISCO · COMPLIANCE</span></div>",
-  "loginTheme": "grc-hub",
+  "displayName": "Lastro",
+  "displayNameHtml": "<div class=\"grc-brand\">Lastro<span>GOVERNANÇA · RISCO · COMPLIANCE</span></div>",
+  "loginTheme": "lastro",
   "internationalizationEnabled": true,
   "supportedLocales": ["pt-BR", "en"],
   "defaultLocale": "pt-BR",

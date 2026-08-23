@@ -1,12 +1,12 @@
-# Política de Segurança — GRC Hub
+# Política de Segurança — Lastro
 
 ## Como reportar uma vulnerabilidade
 
-Reporte por e-mail para **seguranca@grchub.com.br**, de preferência com:
+Reporte por e-mail para **seguranca@lastrogrc.com.br**, de preferência com:
 
 - o que acontece e o impacto (o que um atacante consegue fazer);
 - como reproduzir, passo a passo;
-- a versão do GRC Hub (rodapé de qualquer tela) e o sistema operacional do host;
+- a versão do Lastro (rodapé de qualquer tela) e o sistema operacional do host;
 - se conhecido, o componente afetado.
 
 **Não abra issue pública** para vulnerabilidade. Se o achado envolver dados de
@@ -28,7 +28,7 @@ correção crítica de segurança — segurança não é funcionalidade de plano
 
 ## Superfície e postura do produto
 
-O GRC Hub é um appliance **auto-hospedado**: roda inteiro na infraestrutura do
+O Lastro é um appliance **auto-hospedado**: roda inteiro na infraestrutura do
 cliente, sem telemetria e sem envio de dados para o fornecedor. A camada de IA é
 local (Ollama), portanto **nenhum conteúdo do SGSI sai da rede do cliente**.
 

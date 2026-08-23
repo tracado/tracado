@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build e assinatura da imagem do GRC Hub.
+# Build e assinatura da imagem do Lastro.
 #
 # Roda na infraestrutura do FORNECEDOR. Produz uma imagem com procedência
 # gravada (versão, commit, data, id de build) e, se o cosign estiver
@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-PORTAL_SRC="${PORTAL_SRC:-../grc-hub-portal}"
+PORTAL_SRC="${PORTAL_SRC:-../lastro-portal}"
 if [ ! -f "${PORTAL_SRC}/Dockerfile" ]; then
   echo "✗ Código do portal não encontrado em ${PORTAL_SRC}."
   echo "  Clone o repositório privado ao lado deste, ou defina PORTAL_SRC."
@@ -19,8 +19,8 @@ VERSION="${VERSION:-$(git -C "${PORTAL_SRC}" describe --tags --always 2>/dev/nul
 GIT_SHA="$(git -C "${PORTAL_SRC}" rev-parse HEAD 2>/dev/null || echo desconhecido)"
 BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 BUILD_ID="$(date -u +%Y%m%d%H%M%S)-${GIT_SHA:0:7}"
-REGISTRY="${REGISTRY:-ghcr.io/grchub}"
-IMAGEM="${REGISTRY}/grc-hub-portal"
+REGISTRY="${REGISTRY:-ghcr.io/lastrogrc}"
+IMAGEM="${REGISTRY}/lastro-portal"
 
 sujo=""
 if git -C "${PORTAL_SRC}" status --porcelain 2>/dev/null | grep -q .; then
@@ -40,11 +40,11 @@ docker build \
   --build-arg "BUILD_DATE=${BUILD_DATE}" \
   --build-arg "BUILD_ID=${BUILD_ID}" \
   -t "${IMAGEM}:${VERSION}" -t "${IMAGEM}:latest" \
-  "${PORTAL_SRC:-../grc-hub-portal}"
+  "${PORTAL_SRC:-../lastro-portal}"
 
 echo "▸ Imagem construída:"
 docker image inspect "${IMAGEM}:${VERSION}" \
-  --format '   {{index .Config.Labels "org.opencontainers.image.version"}} · commit {{index .Config.Labels "org.opencontainers.image.revision"}} · build {{index .Config.Labels "br.com.grchub.build_id"}}'
+  --format '   {{index .Config.Labels "org.opencontainers.image.version"}} · commit {{index .Config.Labels "org.opencontainers.image.revision"}} · build {{index .Config.Labels "br.com.lastro.build_id"}}'
 
 if [ "${PUBLICAR:-nao}" = "sim" ]; then
   docker push "${IMAGEM}:${VERSION}"

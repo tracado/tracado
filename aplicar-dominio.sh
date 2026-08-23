@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ════════════════════════════════════════════════════════════════════
-# GRC Hub — aplica uma troca de domínio/certificado a partir do intent
+# Lastro — aplica uma troca de domínio/certificado a partir do intent
 # gravado pelo portal em /control/request.json. Executado pelo serviço
 # 'configurator' (o único com acesso ao Docker).
 #

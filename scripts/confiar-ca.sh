@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ════════════════════════════════════════════════════════════════════
-# GRC Hub — instala a CA interna do appliance no repositório de
+# Lastro — instala a CA interna do appliance no repositório de
 # confiança da máquina, para que o HTTPS local abra SEM AVISO em
 # Chrome, Safari, Edge e Firefox.
 #
@@ -15,7 +15,7 @@
 set -u
 cd "$(dirname "$0")/.."
 CA_FILE="caddy/GRC-Hub-CA-local.crt"
-CA_NOME="GRC Hub Local CA"
+CA_NOME="Lastro Local CA"
 REMOVER=""; [ "${1:-}" = "--remover" ] && REMOVER=1
 
 msg(){ printf '%s\n' "$*"; }
@@ -63,8 +63,8 @@ case "$SO" in
     ;;
   Linux)
     DEST=""
-    if   [ -d /usr/local/share/ca-certificates ]; then DEST=/usr/local/share/ca-certificates/grc-hub-local-ca.crt; ATUALIZA="update-ca-certificates"
-    elif [ -d /etc/pki/ca-trust/source/anchors ]; then DEST=/etc/pki/ca-trust/source/anchors/grc-hub-local-ca.crt; ATUALIZA="update-ca-trust extract"
+    if   [ -d /usr/local/share/ca-certificates ]; then DEST=/usr/local/share/ca-certificates/lastro-local-ca.crt; ATUALIZA="update-ca-certificates"
+    elif [ -d /etc/pki/ca-trust/source/anchors ]; then DEST=/etc/pki/ca-trust/source/anchors/lastro-local-ca.crt; ATUALIZA="update-ca-trust extract"
     fi
     if [ -z "$DEST" ]; then err "distribuição não reconhecida (sem ca-certificates nem ca-trust)"; exit 1; fi
     if [ -n "$REMOVER" ]; then

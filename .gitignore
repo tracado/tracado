@@ -44,8 +44,8 @@ licenciador/chaves/
 *.priv
 
 # O miolo vive em repositórios PRÓPRIOS e privados:
-#   ../grc-hub-portal        (código do portal)
-#   ../grc-hub-licenciador   (emissão de licenças)
+#   ../lastro-portal        (código do portal)
+#   ../lastro-licenciador   (emissão de licenças)
 dashboard/
 licenciador/
 

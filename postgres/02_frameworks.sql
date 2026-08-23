@@ -1,4 +1,4 @@
--- GRC Hub v2.0 — Seed de Frameworks
+-- Lastro v2.0 — Seed de Frameworks
 -- Gerado automaticamente — NÃO editar manualmente
 
 -- FRAMEWORKS

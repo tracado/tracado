@@ -1,15 +1,15 @@
-GRC Hub — Avisos de Terceiros
+Lastro — Avisos de Terceiros
 =============================
 
 Este produto incorpora e distribui componentes de terceiros, listados abaixo com
 suas respectivas licenças. Nada nesta lista altera os termos do LICENSE do
-GRC Hub; cada componente permanece sob a licença do seu autor.
+Lastro; cada componente permanece sob a licença do seu autor.
 
 
 Serviços da plataforma (imagens de contêiner)
 ---------------------------------------------
 Keycloak 26.4 — Apache License 2.0 — https://www.keycloak.org
-    Autenticação e SSO. O tema da tela de login utilizado pelo GRC Hub é obra
+    Autenticação e SSO. O tema da tela de login utilizado pelo Lastro é obra
     derivada do tema padrão do Keycloak, também sob Apache 2.0.
 
 oauth2-proxy 7.9.0 — MIT License — https://oauth2-proxy.github.io
@@ -55,12 +55,12 @@ cryptography 43.0.3 — Apache 2.0 / BSD 3-Clause — https://cryptography.io
 
 Conteúdo normativo
 ------------------
-O GRC Hub referencia normas e frameworks por CÓDIGO e TÍTULO de controle, e
+O Lastro referencia normas e frameworks por CÓDIGO e TÍTULO de controle, e
 descreve requisitos com texto próprio. O texto normativo das normas NÃO é
 reproduzido nem redistribuído.
 
 ISO/IEC 27001 e ISO/IEC 27002 — © ISO/IEC e, no Brasil, ABNT.
-    A norma deve ser adquirida pelo usuário junto à ABNT ou à ISO. O GRC Hub não
+    A norma deve ser adquirida pelo usuário junto à ABNT ou à ISO. O Lastro não
     substitui nem reproduz o conteúdo normativo.
 ISO/IEC 42001 — © ISO/IEC e ABNT. Mesma condição acima.
 COBIT 2019 — © ISACA. Uso da estrutura sujeito aos termos da ISACA.
