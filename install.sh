@@ -113,7 +113,7 @@ chmod +x scripts/*.sh *.sh 2>/dev/null || true
 if grep -q CHANGE_ME .env; then ./generate-secrets.sh; fi
 ./scripts/render-keycloak-realm.sh
 # preserva o Caddyfile de produção (domínio próprio via ./configurar-dominio.sh)
-if [ -f caddy/Caddyfile ] && grep -q "GRC-HUB-PRODUCAO" caddy/Caddyfile; then
+if [ -f caddy/Caddyfile ] && grep -q "TRACADO-PRODUCAO" caddy/Caddyfile; then
   echo "Caddyfile de produção detectado — mantido (para voltar ao localhost, apague caddy/Caddyfile)."
 else
   cp caddy/Caddyfile.local caddy/Caddyfile

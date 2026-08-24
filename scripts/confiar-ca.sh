@@ -14,7 +14,7 @@
 # ════════════════════════════════════════════════════════════════════
 set -u
 cd "$(dirname "$0")/.."
-CA_FILE="caddy/GRC-Hub-CA-local.crt"
+CA_FILE="caddy/Tracado-CA-local.crt"
 CA_NOME="Traçado Local CA"
 REMOVER=""; [ "${1:-}" = "--remover" ] && REMOVER=1
 

@@ -1,7 +1,7 @@
-# GRC-HUB-INTERNO — gerado pelo assistente (modo "CA interna").
+# TRACADO-INTERNO — gerado pelo assistente (modo "CA interna").
 # Domínio próprio do cliente em rede fechada, com certificado emitido e
 # renovado pela CA interna do Caddy (tls internal). Distribua a CA raiz
-# (caddy/GRC-Hub-CA-local.crt) nas máquinas do cliente para o cadeado ficar
+# (caddy/Tracado-CA-local.crt) nas máquinas do cliente para o cadeado ficar
 # verde. O cliente precisa resolver os domínios (DNS interno) para este host.
 {
     admin off

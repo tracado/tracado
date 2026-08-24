@@ -109,9 +109,9 @@ print('✓ caddy/Caddyfile de produção gerado')
 PYEOF
 
 # ── 3. Override do compose: expõe 80/443 no host ─────────────────────
-if [ ! -f docker-compose.override.yml ] || ! grep -q "GRC-HUB-PRODUCAO" docker-compose.override.yml; then
+if [ ! -f docker-compose.override.yml ] || ! grep -q "TRACADO-PRODUCAO" docker-compose.override.yml; then
   cat > docker-compose.override.yml <<'YAML'
-# GRC-HUB-PRODUCAO — gerado por configurar-dominio.sh
+# TRACADO-PRODUCAO — gerado por configurar-dominio.sh
 # Expõe HTTP/HTTPS no host para o domínio do cliente (Let's Encrypt usa a 80).
 services:
   caddy:

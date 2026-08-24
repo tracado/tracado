@@ -119,10 +119,10 @@ if %errorLevel% neq 0 (
 
 REM ── 6. Confiar na CA interna (Windows + Firefox) ──────────────────
 echo  [6/6] Instalando o certificado da CA interna...
-wsl -d %DISTRO% -u root -- bash -c "cd /opt/tracado && docker exec sgsi_caddy sh -c 'cat /data/caddy/pki/authorities/local/root.crt' > /opt/tracado/caddy/GRC-Hub-CA-local.crt 2>/dev/null; true"
-wsl -d %DISTRO% -u root -- bash -c "cp /opt/tracado/caddy/GRC-Hub-CA-local.crt '%SRC%/caddy/GRC-Hub-CA-local.crt' 2>/dev/null; true"
-if exist "%CD%\caddy\GRC-Hub-CA-local.crt" (
-    certutil -addstore -f Root "%CD%\caddy\GRC-Hub-CA-local.crt" >nul 2>&1
+wsl -d %DISTRO% -u root -- bash -c "cd /opt/tracado && docker exec sgsi_caddy sh -c 'cat /data/caddy/pki/authorities/local/root.crt' > /opt/tracado/caddy/Tracado-CA-local.crt 2>/dev/null; true"
+wsl -d %DISTRO% -u root -- bash -c "cp /opt/tracado/caddy/Tracado-CA-local.crt '%SRC%/caddy/Tracado-CA-local.crt' 2>/dev/null; true"
+if exist "%CD%\caddy\Tracado-CA-local.crt" (
+    certutil -addstore -f Root "%CD%\caddy\Tracado-CA-local.crt" >nul 2>&1
     if !errorLevel! equ 0 (
         echo  ✓ CA confiada no Windows ^(Chrome e Edge^).
     ) else (

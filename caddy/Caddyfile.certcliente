@@ -1,4 +1,4 @@
-# GRC-HUB-CERT-CLIENTE — gerado pelo assistente (modo "enviar meu certificado").
+# TRACADO-CERT-CLIENTE — gerado pelo assistente (modo "enviar meu certificado").
 # Usa o certificado + chave que o cliente enviou pela interface (PKI corporativa
 # ou certificado público já emitido). O certificado deve cobrir OS DOIS domínios
 # (portal e login), via SAN ou wildcard. Caddy NÃO tenta renovar — a renovação

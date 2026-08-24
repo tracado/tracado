@@ -1,4 +1,4 @@
-# GRC-HUB-LOCAL — 1º uso / avaliação / na própria máquina, com HTTPS.
+# TRACADO-LOCAL — 1º uso / avaliação / na própria máquina, com HTTPS.
 # Portal   → https://localhost
 # Keycloak → https://localhost:8443
 # Resolve em Windows/Linux/Mac SEM mexer em /etc/hosts (é localhost).

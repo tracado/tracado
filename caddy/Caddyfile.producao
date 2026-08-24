@@ -1,4 +1,4 @@
-# GRC-HUB-PRODUCAO — modelo renderizado pelo ./configurar-dominio.sh
+# TRACADO-PRODUCAO — modelo renderizado pelo ./configurar-dominio.sh
 # HTTPS automático via Let's Encrypt (Caddy emite e renova sozinho).
 # Requisitos: DNS dos dois domínios apontando para este servidor e
 # portas 80/443 liberadas para a internet.

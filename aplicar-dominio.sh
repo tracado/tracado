@@ -134,6 +134,6 @@ Modo TLS: $MODE"
 [ "$MODE" = letsencrypt ] && LOG="$LOG
 DNS dos dois domínios deve apontar para este servidor; o cadeado aparece em ~30s."
 [ "$MODE" = internal ]    && LOG="$LOG
-Distribua a CA interna (caddy/GRC-Hub-CA-local.crt) nas máquinas do cliente."
+Distribua a CA interna (caddy/Tracado-CA-local.crt) nas máquinas do cliente."
 st "ok" "Domínio aplicado: https://$PORTAL" "$LOG"
 echo "OK: $PORTAL ($MODE)"
