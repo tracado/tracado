@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ════════════════════════════════════════════════════════════════════
-# Lastro — coloca o appliance no DOMÍNIO PRÓPRIO do cliente, com
+# Traçado — coloca o appliance no DOMÍNIO PRÓPRIO do cliente, com
 # HTTPS automático (Let's Encrypt via Caddy).
 #
 # Uso:
@@ -43,7 +43,7 @@ elif command -v docker-compose >/dev/null 2>&1; then DC="docker-compose";
 else echo "✖ Docker Compose não encontrado."; exit 1; fi
 
 echo "═══════════════════════════════════════════════════"
-echo " Lastro → domínio próprio do cliente"
+echo " Traçado → domínio próprio do cliente"
 echo "   Portal:   https://${PORTAL_DOMAIN}"
 echo "   Login:    https://${AUTH_DOMAIN}"
 echo "   ACME:     ${ACME_EMAIL}"

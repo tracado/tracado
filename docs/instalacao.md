@@ -1,13 +1,13 @@
 # Instalação
 
-O Lastro roda em Docker. O instalador cuida de tudo, inclusive de instalar o
+O Traçado roda em Docker. O instalador cuida de tudo, inclusive de instalar o
 Docker se ele não existir.
 
 ## Linux e macOS
 
 ```bash
-git clone https://github.com/lastrogrc/lastro.git
-cd lastro
+git clone https://github.com/tracado/tracado.git
+cd tracado
 ./install.sh
 ```
 

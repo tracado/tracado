@@ -1,4 +1,4 @@
-# Lastro — Appliance
+# Traçado — Appliance
 
 Plataforma de GRC auto-hospedada: ISO 27001, LGPD, CIS Controls v8, NIST CSF,
 COBIT 2019 e ISO 42001, com correlação entre normas e IA local.
@@ -9,9 +9,9 @@ repositórios próprios e privados.
 
 | repositório | conteúdo | visibilidade |
 |---|---|---|
-| `lastro` (este) | appliance, instaladores, documentação | público |
-| `lastro-portal` | código do portal — vira a imagem distribuída | privado |
-| `lastro-licenciador` | emissão de licenças, chave privada Ed25519 | privado |
+| `tracado` (este) | appliance, instaladores, documentação | público |
+| `tracado-portal` | código do portal — vira a imagem distribuída | privado |
+| `tracado-licenciador` | emissão de licenças, chave privada Ed25519 | privado |
 
 ## Instalação (cliente)
 
@@ -28,7 +28,7 @@ código-fonte.
 Clone o repositório do portal ao lado deste e use o override:
 
 ```bash
-git clone <privado>/lastro-portal ../lastro-portal
+git clone <privado>/tracado-portal ../tracado-portal
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
 
@@ -40,7 +40,7 @@ fornecer como serviço gerenciado e contornar a chave de licença são vedados.
 
 ---
 
-# Lastro v2.1
+# Traçado v2.1
 
 **Plataforma de Governança, Riscos e Conformidade** — Multi-framework, self-hosted, sem licenciamento por usuário.
 
@@ -92,8 +92,8 @@ fornecer como serviço gerenciado e contornar a chave de licença são vedados.
 ## Temas (escuro premium ⇄ claro enterprise)
 
 O botão 🌓 no topo alterna entre o tema escuro (padrão, premium) e o claro (enterprise),
-com persistência por navegador. A tela de login do Keycloak usa o tema `lastro`
-(mesma identidade visual), definido em `keycloak/themes/lastro`.
+com persistência por navegador. A tela de login do Keycloak usa o tema `tracado`
+(mesma identidade visual), definido em `keycloak/themes/tracado`.
 
 **Tipografia**: Poppins (títulos), Inter (texto) e IBM Plex Mono (códigos/números) —
 **auto-hospedadas** na imagem do portal e no tema do Keycloak: nenhuma chamada
@@ -116,7 +116,7 @@ tem um guia com atalhos; os principais caminhos no realm `sgsi`:
 
 ### Como o SSO aparece no login
 
-O acesso ao portal pula direto para a tela de login do Lastro (tema `lastro`,
+O acesso ao portal pula direto para a tela de login do Traçado (tema `tracado`,
 sem tela intersticial). Quando você adiciona um Identity Provider no realm `sgsi`,
 o botão **"Entrar com ..."** (Azure AD, Google etc.) aparece automaticamente
 **nessa mesma tela**, abaixo do usuário/senha — o usuário escolhe como entrar.

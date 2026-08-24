@@ -1,4 +1,4 @@
-# Distribuição do Lastro
+# Distribuição do Traçado
 
 ## O que o cliente recebe
 
@@ -6,7 +6,7 @@ Uma **imagem assinada**, não o repositório. O `install.sh` puxa a imagem do
 registro em vez de construir a partir do código.
 
 ```
-ghcr.io/lastrogrc/lastro-portal:<versão>
+ghcr.io/tracado/tracado-portal:<versão>
 ```
 
 A imagem carrega a procedência nos rótulos OCI: versão, **commit exato**, data
@@ -14,7 +14,7 @@ de build e um id de build. Pegando um contêiner rodando em qualquer cliente,
 volta-se ao commit que o gerou:
 
 ```bash
-docker image inspect ghcr.io/lastrogrc/lastro-portal:2.1.0 \
+docker image inspect ghcr.io/tracado/tracado-portal:2.1.0 \
   --format '{{index .Config.Labels "org.opencontainers.image.revision"}}'
 ```
 
@@ -35,7 +35,7 @@ assinatura.
 O cliente verifica com:
 
 ```bash
-cosign verify ghcr.io/lastrogrc/lastro-portal@sha256:<digest> \
+cosign verify ghcr.io/tracado/tracado-portal@sha256:<digest> \
   --certificate-identity-regexp '.*' --certificate-oidc-issuer-regexp '.*'
 ```
 
@@ -62,7 +62,7 @@ Toda instalação exibe, no rodapé de cada tela e no cabeçalho de **cada
 relatório impresso ou salvo em PDF**:
 
 ```
-Lastro v2.1.0 · Licenciado para <cliente> · LIC-000123 · instância C3D3E2957821
+Traçado v2.1.0 · Licenciado para <cliente> · LIC-000123 · instância C3D3E2957821
 ```
 
 A impressão da instância é derivada da **licença assinada** (cliente + código

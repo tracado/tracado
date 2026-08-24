@@ -1,5 +1,5 @@
 -- ============================================================================
--- Lastro v2.0 — Schema PostgreSQL
+-- Traçado v2.0 — Schema PostgreSQL
 -- Substitui completamente o schema v1.x (execute com banco limpo)
 -- ============================================================================
 SET client_min_messages = 'warning';
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS configuracoes(
 );
 INSERT INTO configuracoes (chave, valor) VALUES
   ('empresa_nome',      'Minha Empresa')
-, ('empresa_subtitulo', 'Lastro · ISO 27001 · CIS · NIST')
+, ('empresa_subtitulo', 'Traçado · ISO 27001 · CIS · NIST')
 , ('empresa_logo',      '')
 , ('admins_extras',     '')
 ON CONFLICT (chave) DO NOTHING;

@@ -67,8 +67,8 @@ Comece pelos privados. Se algo der errado, nada sensível estará exposto.
 **2.1 — O portal (o miolo do produto):**
 
 ```bash
-cd ~/lastro-portal
-gh repo create lastro-portal --private --source=. --remote=origin --push
+cd ~/tracado-portal
+gh repo create tracado-portal --private --source=. --remote=origin --push
 ```
 
 Lendo o comando: `--private` cria fechado; `--source=.` diz que o conteúdo é
@@ -77,15 +77,15 @@ esta pasta; `--remote=origin` registra o endereço remoto; `--push` já envia.
 **2.2 — O licenciador:**
 
 ```bash
-cd ~/lastro-licenciador
-gh repo create lastro-licenciador --private --source=. --remote=origin --push
+cd ~/tracado-licenciador
+gh repo create tracado-licenciador --private --source=. --remote=origin --push
 ```
 
 **2.3 — Confirme que estão privados:**
 
 ```bash
-gh repo view lastro-portal --json isPrivate,url
-gh repo view lastro-licenciador --json isPrivate,url
+gh repo view tracado-portal --json isPrivate,url
+gh repo view tracado-licenciador --json isPrivate,url
 ```
 
 Ambos devem responder `"isPrivate": true`. **Se algum vier `false`, pare e
@@ -100,7 +100,7 @@ Este é o único irreversível: uma vez público, considere que alguém já copi
 **3.1** Veja exatamente o que sairá:
 
 ```bash
-cd ~/lastro
+cd ~/tracado
 git ls-files
 ```
 
@@ -115,7 +115,7 @@ Precisa imprimir **LIMPO**. Se imprimir qualquer arquivo, **pare**.
 **3.3** Só então crie e publique:
 
 ```bash
-gh repo create lastro --public --source=. --remote=origin --push
+gh repo create tracado --public --source=. --remote=origin --push
 ```
 
 ---
@@ -123,20 +123,20 @@ gh repo create lastro --public --source=. --remote=origin --push
 ## Etapa 4 — O site de documentação (GitHub Pages)
 
 O GitHub publica um site a partir de uma pasta do repositório, de graça. O
-endereço será `https://SEU-USUARIO.github.io/lastro/`.
+endereço será `https://SEU-USUARIO.github.io/tracado/`.
 
 **4.1** A pasta `docs/` já está pronta neste repositório, com a documentação
 convertida do produto. Confirme:
 
 ```bash
-ls ~/lastro/docs
+ls ~/tracado/docs
 ```
 
 **4.2** Ligue o Pages:
 
 ```bash
-cd ~/lastro
-gh api -X POST repos/:owner/lastro/pages -f "source[branch]=main" -f "source[path]=/docs"
+cd ~/tracado
+gh api -X POST repos/:owner/tracado/pages -f "source[branch]=main" -f "source[path]=/docs"
 ```
 
 Se disser que já existe, está ligado — siga.
@@ -144,7 +144,7 @@ Se disser que já existe, está ligado — siga.
 **4.3** Espere de um a dois minutos e veja o endereço:
 
 ```bash
-gh api repos/:owner/lastro/pages --jq .html_url
+gh api repos/:owner/tracado/pages --jq .html_url
 ```
 
 Abra no navegador. Se aparecer 404, espere mais um minuto: a primeira
@@ -161,7 +161,7 @@ a branch** → *Branch*: **main**, pasta **/docs** → **Save**.
 Trabalhou no código, quer mandar para o GitHub:
 
 ```bash
-cd ~/lastro-portal      # ou o repositório que você mexeu
+cd ~/tracado-portal      # ou o repositório que você mexeu
 git status               # o que mudou
 git add -A               # marca tudo para o próximo commit
 git commit -m "descreva em uma linha o que mudou"
@@ -179,7 +179,7 @@ momento em que um arquivo indevido é pego.
 
 **Publiquei algo errado no repositório público** → o arquivo continua no
 histórico mesmo se apagado depois. Torne o repositório privado imediatamente
-(`gh repo edit lastro --visibility private`), **troque qualquer segredo que
+(`gh repo edit tracado --visibility private`), **troque qualquer segredo que
 tenha vazado** — ele deve ser considerado comprometido — e só então limpe o
 histórico.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ════════════════════════════════════════════════════════════════════
-# Plano de controle do Lastro. Observa /control/request.json (escrito
+# Plano de controle do Traçado. Observa /control/request.json (escrito
 # SÓ pelo portal, após autenticação de admin) e chama aplicar-dominio.sh.
 # O intent é DADO validado, nunca comando: a lógica de aplicação é fixa.
 # ════════════════════════════════════════════════════════════════════

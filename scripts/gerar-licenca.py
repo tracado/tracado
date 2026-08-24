@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Gerador de chaves de licença do Lastro (uso do fornecedor).
+"""Gerador de chaves de licença do Traçado (uso do fornecedor).
 
 Protegido por senha: gerar uma licença exige a senha do fornecedor, para que
 apenas quem a conhece possa emitir chaves — mesmo com acesso ao script e ao

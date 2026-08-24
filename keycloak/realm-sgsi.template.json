@@ -1,9 +1,9 @@
 {
   "realm": "sgsi",
   "enabled": true,
-  "displayName": "Lastro",
-  "displayNameHtml": "<div class=\"grc-brand\">Lastro<span>GOVERNANÇA · RISCO · COMPLIANCE</span></div>",
-  "loginTheme": "lastro",
+  "displayName": "Traçado",
+  "displayNameHtml": "<div class=\"grc-brand\">Traçado<span>GOVERNANÇA · RISCO · COMPLIANCE</span></div>",
+  "loginTheme": "tracado",
   "internationalizationEnabled": true,
   "supportedLocales": ["pt-BR", "en"],
   "defaultLocale": "pt-BR",

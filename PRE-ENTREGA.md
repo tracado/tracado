@@ -1,4 +1,4 @@
-# Checklist de Pré-Entrega — Lastro
+# Checklist de Pré-Entrega — Traçado
 
 > Itens **obrigatórios** antes de entregar o appliance a um cliente.
 > Nada aqui deve ser feito durante o desenvolvimento (só gera fricção) — mas
@@ -10,17 +10,17 @@
 
 O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. Confira um a um:
 
-- [ ] `LICENSE_SIGNING_KEY` — **NÃO** pode ser `lastro-assinatura-padrao-v1`.
+- [ ] `LICENSE_SIGNING_KEY` — **NÃO** pode ser `tracado-assinatura-padrao-v1`.
       Gere um por cliente: `openssl rand -hex 32`. É o que assina a licença; se
       vazar, o cliente forja as próprias chaves. *(Não é coberto pelo generate-secrets.sh.)*
-- [ ] `FLASK_SECRET_KEY` — **NÃO** pode ficar no default `lastro-v2-secret`
+- [ ] `FLASK_SECRET_KEY` — **NÃO** pode ficar no default `tracado-v2-secret`
       (fallback no código do portal). Defina no `.env`: `openssl rand -hex 32`.
       *(Também não é coberto pelo generate-secrets.sh.)*
 - [ ] `POSTGRES_PASSWORD`, `KEYCLOAK_ADMIN_PASSWORD`, `KEYCLOAK_CLIENT_SECRET`,
       `MASTER_PASSWORD`, `OAUTH2_PROXY_COOKIE_SECRET` — rodar `./generate-secrets.sh`
       e confirmar que **nenhum** ficou `CHANGE_ME`.
 - [ ] `MASTER_EMAIL` — trocar `admin@sgsi.local` pelo e-mail real do admin do cliente.
-- [ ] Conferência final: `grep -n 'CHANGE_ME\|padrao\|lastro-v2-secret' .env` deve vir **vazio**.
+- [ ] Conferência final: `grep -n 'CHANGE_ME\|padrao\|tracado-v2-secret' .env` deve vir **vazio**.
 
 ## 2. Não incluir no pacote entregue
 
@@ -28,7 +28,7 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
       senha (`scripts/.senha-licenca`). O appliance não precisa dela.
 - [ ] Garantir que `scripts/.senha-licenca` **não** foi para o pacote (o `.gitignore` já ignora).
 - [ ] Remover artefatos soltos que não fazem parte do runtime:
-      `lastro-v2.0 (2).zip`, `grc-platform.html` (protótipo antigo).
+      `tracado-v2.0 (2).zip`, `grc-platform.html` (protótipo antigo).
 - [ ] Nunca incluir a **chave privada** de licença (ver item 4) no pacote do cliente.
 
 ## 3. Dados
@@ -44,7 +44,7 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
       forjar licença mesmo tendo o código e o `.env`. *(Ver conversa/decisão de projeto.)*
       - Remover `LICENSE_SIGNING_KEY` do `.env` do cliente; trocar por `LICENSE_PUBLIC_KEY`.
 - [x] **Entregar imagem Docker pré-buildada**, não o código-fonte — feito: o compose
-      puxa `ghcr.io/lastrogrc/lastro-portal` e o código vive em repositório privado.
+      puxa `ghcr.io/tracado/tracado-portal` e o código vive em repositório privado.
       Dificulta adulterar o `licenca.py` para burlar o check. Distribuir `.pyc`.
 - [ ] **(Opcional) Vínculo por install_id** — a chave carrega um id da instalação e o
       appliance recusa se não bater; impede reuso de licença vazada em outra instalação.
@@ -63,4 +63,4 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
 - [ ] Subir limpo, logar com o admin, aplicar a licença gerada e confirmar que o
       plano correto ativa os frameworks certos.
 - [ ] Testar um framework **fora do plano** → deve aparecer 🔒 e bloquear a rota.
-- [ ] Confirmar que a tela de login usa o tema `lastro` e que não há chamada a CDN externa.
+- [ ] Confirmar que a tela de login usa o tema `tracado` e que não há chamada a CDN externa.

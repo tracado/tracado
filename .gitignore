@@ -44,8 +44,8 @@ licenciador/chaves/
 *.priv
 
 # O miolo vive em repositórios PRÓPRIOS e privados:
-#   ../lastro-portal        (código do portal)
-#   ../lastro-licenciador   (emissão de licenças)
+#   ../tracado-portal        (código do portal)
+#   ../tracado-licenciador   (emissão de licenças)
 dashboard/
 licenciador/
 
