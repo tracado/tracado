@@ -53,3 +53,6 @@ licenciador/
 # scripts/confiar-ca.sh. Versionar faria clientes confiarem na CA de outra máquina.
 caddy/*.crt
 caddy/*.key
+
+# Configuração local do Claude Code — pode conter comandos com credenciais
+.claude/
