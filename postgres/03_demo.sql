@@ -174,7 +174,6 @@ INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Contrato
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Proposta Técnica de Serviços Datacorp','Contrato/Certificação','Vigente',NULL,NULL);
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Procedimento de Configuração de SI (Hardening)','Procedimento','Vigente',NULL,NULL);
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Procedimento de Liberação de Software','Procedimento','Vigente',NULL,NULL);
-INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Política de Senha','Política','Vigente',NULL,NULL);
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Procedimento de Monitoramento da Capacidade','Procedimento','Vigente',NULL,NULL);
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('politica de segurança cibernética','Política','Vigente',NULL,NULL);
 INSERT INTO politicas (titulo,tipo,status,arquivo,hash_sha256) VALUES ('Procedimento de resposta a hansoware','Procedimento','Vigente',NULL,NULL);
