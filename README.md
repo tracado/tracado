@@ -172,26 +172,22 @@ Dois estágios, sem nenhuma API externa:
 
 ## Licenciamento (offline, plug and play)
 
-| Plano | Frameworks | Importar CSV |
-|-------|-----------|--------------|
-| **Básico** (padrão, sem chave) | ISO 27001/27002 (Anexo A) + LGPD | — |
-| **Intermediário** | Básico + CIS Controls v8 + ISO 42001 | — |
-| **Avançado** | Todos (inclui NIST CSF e COBIT) + importados | ✔ |
+| Edição | Frameworks | Analista IA · GAP · relatórios |
+|--------|-----------|-------------------------------|
+| **Comunidade** (padrão, sem chave) | ISO 27001/27002 (Anexo A + requisitos) + LGPD | — |
+| **Essencial** | Comunidade + CIS Controls v8 | ✔ |
+| **Avançado** | Todos (inclui NIST CSF, COBIT e ISO 42001) | ✔ |
 
-- A chave é validada **100% offline** (HMAC assinada) — nada sai do cliente.
+A Edição Comunidade é **gratuita e sem prazo**: registra o SGSI por completo em
+ISO 27001 e LGPD. O que a licença habilita é a inteligência sobre esse SGSI —
+o Analista IA, a análise de GAP, os relatórios executivos e a exportação.
+
+- A chave é assinada em **Ed25519** e validada **100% offline** — nada sai do cliente.
 - Aplicar: portal → ⚙ Configurações → **Licença** → colar a chave.
-- Gerar chaves (fornecedor) — **protegido por senha**:
-  ```bash
-  python3 scripts/gerar-licenca.py definir-senha              # 1ª vez: define a senha do fornecedor
-  python3 scripts/gerar-licenca.py avancado CLIENTE 2027-12-31 # pede a senha antes de emitir
-  ```
-  Use o mesmo `LICENSE_SIGNING_KEY` (`.env`) do appliance do cliente. A senha é guardada
-  apenas como hash PBKDF2 em `scripts/.senha-licenca` (nunca em texto puro; não versione).
-  Para automação/CI, informe a senha via `LICENSE_GEN_PASSWORD` (e o hash via
-  `LICENSE_GEN_PASSWORD_HASH`) em vez do prompt.
-- **⚠ Pacote de entrega ao cliente: NÃO inclua a pasta `scripts/`** (contém o gerador de
-  licenças e o hash da senha; o appliance não precisa dela) e defina um `LICENSE_SIGNING_KEY`
-  próprio no `.env`.
+- **A emissão não acontece aqui.** O appliance apenas *verifica*: carrega somente
+  a chave pública (`LICENSE_PUBLIC_KEY` no `.env`). A privada vive no licenciador
+  do fornecedor, em repositório separado — por isso quem instala o produto não
+  consegue emitir a própria licença.
 - Frameworks fora do plano aparecem **escurecidos com 🔒** e são bloqueados nas rotas.
 - O admin também pode **ativar/desativar** qualquer framework do plano (card fica ⏸ escurecido para os demais usuários).
 

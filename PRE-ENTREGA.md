@@ -10,9 +10,9 @@
 
 O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. Confira um a um:
 
-- [ ] `LICENSE_SIGNING_KEY` — **NÃO** pode ser `tracado-assinatura-padrao-v1`.
-      Gere um por cliente: `openssl rand -hex 32`. É o que assina a licença; se
-      vazar, o cliente forja as próprias chaves. *(Não é coberto pelo generate-secrets.sh.)*
+- [x] ~~`LICENSE_SIGNING_KEY`~~ — **não existe mais.** A assinatura passou a ser
+      Ed25519: o appliance carrega só `LICENSE_PUBLIC_KEY`, e a privada nunca
+      sai do licenciador. Não há segredo de assinatura no `.env` do cliente.
 - [ ] `FLASK_SECRET_KEY` — **NÃO** pode ficar no default `tracado-v2-secret`
       (fallback no código do portal). Defina no `.env`: `openssl rand -hex 32`.
       *(Também não é coberto pelo generate-secrets.sh.)*
@@ -24,9 +24,9 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
 
 ## 2. Não incluir no pacote entregue
 
-- [ ] **Remover a pasta `scripts/`** — contém o gerador de licenças e o hash da
-      senha (`scripts/.senha-licenca`). O appliance não precisa dela.
-- [ ] Garantir que `scripts/.senha-licenca` **não** foi para o pacote (o `.gitignore` já ignora).
+- [x] ~~Remover a pasta `scripts/`~~ — o gerador de licenças saiu do repositório.
+      O que resta em `scripts/` é ferramenta de instalação e diagnóstico, útil ao
+      cliente: build-release, confiar-ca, render-keycloak-realm, set-env, status-report.
 - [ ] Remover artefatos soltos que não fazem parte do runtime:
       `tracado-v2.0 (2).zip`, `grc-platform.html` (protótipo antigo).
 - [ ] Nunca incluir a **chave privada** de licença (ver item 4) no pacote do cliente.
@@ -39,7 +39,7 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
 
 ## 4. Endurecimento do licenciamento (adiado do dev — fazer agora)
 
-- [ ] **Migrar HMAC → Ed25519** (assinatura assimétrica). A privada fica só com você;
+- [x] **Migrar HMAC → Ed25519** — FEITO (assinatura assimétrica). A privada fica só com você;
       o appliance recebe **apenas a chave pública**. Assim o cliente não consegue
       forjar licença mesmo tendo o código e o `.env`. *(Ver conversa/decisão de projeto.)*
       - Remover `LICENSE_SIGNING_KEY` do `.env` do cliente; trocar por `LICENSE_PUBLIC_KEY`.
@@ -48,8 +48,8 @@ O `generate-secrets.sh` cobre parte, mas **não gera dois segredos críticos**. 
       Dificulta adulterar o `licenca.py` para burlar o check. Distribuir `.pyc`.
 - [ ] **(Opcional) Vínculo por install_id** — a chave carrega um id da instalação e o
       appliance recusa se não bater; impede reuso de licença vazada em outra instalação.
-- [ ] Definir a **senha de emissão** do gerador (`gerar-licenca.py definir-senha`) no
-      seu ambiente de fornecedor — não no do cliente.
+- [x] ~~Senha de emissão do gerador local~~ — o gerador foi removido. A emissão
+      acontece no **licenciador** (repositório privado), protegido por login.
 
 ## 5. Produção / rede
 
