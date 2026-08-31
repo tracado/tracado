@@ -55,12 +55,14 @@ if [ "${PUBLICAR:-nao}" = "sim" ]; then
   if command -v cosign >/dev/null 2>&1; then
     cosign sign --yes "${DIGEST}"
     echo "▸ Assinada com cosign."
-    echo "  O cliente verifica com:"
-    echo "    cosign verify ${DIGEST} \\"
+    echo "  O cliente verifica SEM instalar nada — ele já tem Docker:"
+    echo "    docker run --rm ghcr.io/sigstore/cosign/cosign:latest verify \\"
+    echo "      ${DIGEST} \\"
     echo "      --certificate-identity-regexp '.*' --certificate-oidc-issuer-regexp '.*'"
   else
     echo "⚠  cosign não encontrado — imagem publicada SEM assinatura."
-    echo "   Instale com:  brew install cosign   (ou https://docs.sigstore.dev)"
+    echo "   Assine com o próprio Docker, sem instalar nada:"
+    echo "     docker run --rm -it ghcr.io/sigstore/cosign/cosign:latest sign ${DIGEST}"
     echo "   Sem assinatura, o cliente não tem como provar que a imagem é sua."
   fi
 else

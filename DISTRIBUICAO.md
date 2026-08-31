@@ -30,14 +30,20 @@ commit gravado não descreve o que foi construído.
 
 Com `PUBLICAR=sim` ele envia ao registro e assina com **cosign**. Sem cosign
 instalado, ele publica e avisa em letras claras que a imagem saiu sem
-assinatura.
+assinatura — e mostra como assinar rodando o cosign em contêiner, também sem
+instalar nada.
 
-O cliente verifica com:
+O cliente verifica **sem instalar nada** — ele já tem Docker, que é
+pré-requisito do appliance. O cosign roda como contêiner:
 
 ```bash
-cosign verify ghcr.io/tracado/tracado-portal@sha256:<digest> \
+docker run --rm ghcr.io/sigstore/cosign/cosign:latest verify \
+  ghcr.io/tracado/tracado-portal@sha256:<digest> \
   --certificate-identity-regexp '.*' --certificate-oidc-issuer-regexp '.*'
 ```
+
+Exigir instalação de ferramenta para conferir procedência anula o plug-and-play:
+quem não instala, não confere — e a assinatura vira decoração.
 
 ## Compilação do miolo
 
