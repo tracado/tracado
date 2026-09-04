@@ -61,3 +61,6 @@ caddy/*.key
 # NUNCA versionar: ele recebe KEYCLOAK_CLIENT_SECRET e MASTER_PASSWORD já
 # substituídos. Foi assim que os dois vazaram para o repositório público.
 keycloak/realm-sgsi.json
+
+# Gerado pelo configurar-dominio.sh com o domínio e o e-mail ACME do cliente.
+docker-compose.override.yml
