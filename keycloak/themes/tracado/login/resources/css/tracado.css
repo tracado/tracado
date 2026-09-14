@@ -22,9 +22,12 @@
 
 body.login-pf,
 .pf-v5-c-login {
+  /* Fundo derivado do azul da marca, não mais do ciano→roxo da identidade
+     anterior. É a PRIMEIRA tela que o usuário vê — se ela não combinar com o
+     portal e com os relatórios, a marca começa contradizendo a si mesma. */
   background:
-    radial-gradient(1100px 560px at 15% -10%, rgba(83,55,245,.28), transparent 60%),
-    radial-gradient(900px 480px at 95% 110%, rgba(0,212,255,.16), transparent 55%),
+    radial-gradient(1100px 560px at 15% -10%, rgba(37,99,235,.26), transparent 60%),
+    radial-gradient(900px 480px at 95% 110%, rgba(96,165,250,.13), transparent 55%),
     #080c14 !important;
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
@@ -39,12 +42,14 @@ body.login-pf,
   letter-spacing: .01em;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
+/* A marca de verdade, não mais a letra 'G' — resquício do nome anterior do
+   produto, que ficou aqui quando ele virou Traçado. O arquivo é local: a tela
+   de login precisa funcionar em rede fechada, como todo o resto do appliance. */
 .grc-brand::before {
-  content: 'G';
-  width: 46px; height: 46px; border-radius: 12px;
-  background: linear-gradient(135deg, #00d4ff, #a78bfa);
-  color: #000; display: grid; place-items: center;
-  font-size: 22px; margin-bottom: 4px;
+  content: '';
+  width: 54px; height: 54px;
+  background: url('../img/marca.svg') center / contain no-repeat;
+  margin-bottom: 6px;
 }
 .grc-brand span {
   font-family: 'Inter', sans-serif;
@@ -82,13 +87,16 @@ body.login-pf,
   color: #e8f4ff !important;
 }
 .pf-v5-c-form-control:focus-within {
-  --pf-v5-c-form-control--BorderColor: #00d4ff;
+  --pf-v5-c-form-control--BorderColor: #60A5FA;
 }
 .pf-v5-c-button.pf-m-control { background: #15243a; color: #7a9bbf; border-color: #1f3550; }
 
 /* Botão principal */
 .pf-v5-c-button.pf-m-primary {
-  background: linear-gradient(135deg, #00d4ff 0%, #5337f5 100%);
+  /* Chapado, sem degradê: a marca não usa degradê em lugar nenhum, e foi
+     decisão consciente — degradê não vira monocromático nem sobrevive à
+     impressão. O botão segue a mesma regra. */
+  background: #2563EB;
   border: 0;
   border-radius: 9px;
   font-weight: 700;
@@ -96,10 +104,10 @@ body.login-pf,
   color: #ffffff;
   padding-top: 10px; padding-bottom: 10px;
 }
-.pf-v5-c-button.pf-m-primary:hover { filter: brightness(1.12); }
+.pf-v5-c-button.pf-m-primary:hover { background: #1D4FD8; }
 
 /* Links e textos auxiliares */
-.pf-v5-c-login__main a { color: #00d4ff; font-weight: 600; }
+.pf-v5-c-login__main a { color: #60A5FA; font-weight: 600; }
 .pf-v5-c-login__main-footer, .pf-v5-c-login__main-body { color: #a9c2dc; }
 .pf-v5-c-helper-text, .pf-v5-c-form__helper-text { color: #7a9bbf; }
 #kc-registration span, .pf-v5-c-login__main-footer-band { color: #7a9bbf; }
@@ -121,9 +129,18 @@ body.login-pf,
   text-transform: uppercase;
 }
 #kc-social-providers { border-top: 1px solid #1a2d45; padding-top: 16px; margin-top: 8px; }
-#kc-social-providers ul { display: flex; flex-direction: column; gap: 8px; }
+/* Sem marcador e sem recuo: o <ul> do Keycloak vinha com bullet e indentação,
+   e cada botão ficava com a largura do próprio texto — três provedores viravam
+   três larguras diferentes, desalinhados entre si e com o Entrar logo acima. */
+#kc-social-providers ul {
+  display: flex; flex-direction: column; gap: 8px;
+  list-style: none; margin: 0; padding: 0;
+}
+#kc-social-providers li { width: 100%; }
 #kc-social-providers a.pf-v5-c-button,
 .kc-social-item {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; text-align: center;
   background: #15243a;
   border: 1px solid #1f3550;
   border-radius: 9px;
@@ -135,7 +152,7 @@ body.login-pf,
 #kc-social-providers a.pf-v5-c-button:hover,
 .kc-social-item:hover {
   background: #1a2c46;
-  border-color: #00d4ff;
+  border-color: #60A5FA;
   text-decoration: none;
 }
 .kc-social-provider-name { color: #e8f4ff; }
