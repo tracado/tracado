@@ -732,3 +732,19 @@ CREATE INDEX IF NOT EXISTS idx_ac_anexo ON analise_critica_anexos(analise_id);
 -- aplicação só sabia desativar, nunca reativar, e o cliente ficava sem ver o
 -- que acabou de contratar.
 ALTER TABLE frameworks ADD COLUMN IF NOT EXISTS desativado_por_licenca BOOLEAN DEFAULT FALSE;
+
+-- ── Auditoria com rastro de alteração (antes → depois) ─────────────────────
+-- O log dizia QUEM mexeu, QUANDO e EM QUÊ, mas nunca O QUE MUDOU. Para uma
+-- ferramenta que vende conformidade isso é pouco: a ISO 27001 pede registro
+-- capaz de sustentar investigação (A.8.15), e "fulano alterou o ativo IA-0007"
+-- não sustenta nada. Sem o valor anterior também não há como desfazer uma
+-- exclusão indevida — o dado simplesmente sumia.
+--
+-- `antes` e `depois` guardam a linha inteira em JSON. Guardar tudo, e não só
+-- os campos alterados, é o que permite RECRIAR o registro apagado.
+ALTER TABLE logs_auditoria ADD COLUMN IF NOT EXISTS tabela TEXT;
+ALTER TABLE logs_auditoria ADD COLUMN IF NOT EXISTS antes  JSONB;
+ALTER TABLE logs_auditoria ADD COLUMN IF NOT EXISTS depois JSONB;
+-- Consulta típica da tela: "exclusões que ainda dá para recriar".
+CREATE INDEX IF NOT EXISTS idx_logs_restauravel
+  ON logs_auditoria (acao, criado_em DESC) WHERE antes IS NOT NULL;
