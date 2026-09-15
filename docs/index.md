@@ -12,6 +12,8 @@ do seu SGSI sai da sua rede**.
 - **[Guia de cada tela](telas.md)** — o que você faz, o que o sistema faz
   sozinho e o que ele vai cobrar de você.
 - **[Instalação](instalacao.md)** — Linux, macOS e Windows.
+- **[API v1](api.md)** — importar planilha, integrar com outro sistema e puxar
+  dados. Autenticação pelo Keycloak que já vem no appliance.
 
 ## Edições
 

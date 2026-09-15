@@ -52,6 +52,14 @@ localhost {
     handle /auth/* {
         reverse_proxy keycloak:8080
     }
+    # A API v1 vai DIRETO ao portal, sem passar pelo oauth2-proxy: ele exige
+    # cookie de sessão de navegador, que integração nenhuma tem. A identidade
+    # aqui vem do Bearer token emitido pelo Keycloak e validada no portal
+    # contra o JWKS do realm. O X-Portal-Secret injetado pelo strip_auth acima
+    # continua valendo — é ele que prova que a requisição atravessou o gateway.
+    handle /api/v1/* {
+        reverse_proxy sgsi-portal:5000
+    }
     handle {
         reverse_proxy oauth2-portal:4180
     }
